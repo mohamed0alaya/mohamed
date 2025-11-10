@@ -1,0 +1,104 @@
+package tp4;
+import java.util.Scanner;
+
+public class TestCompte {
+
+    // ------------------- Classe Compte -------------------
+    static class Compte {
+        public double solde;
+
+        // Constructeur
+        public Compte(double soldeInitial) {
+            this.solde = soldeInitial;
+        }
+
+        // Dépôt
+        public void deposer(double montant) {
+            if (montant > 0) {
+                solde += montant;
+                System.out.println(" Dépôt de " + montant + " DT effectué.");
+            } else {
+                System.out.println(" Le montant du dépôt doit être positif.");
+            }
+        }
+
+        // Retrait
+        public void retirer(double montant) {
+            if (montant > 0) {
+                if (montant > solde) {
+                    System.out.println(" Solde insuffisant pour le retrait !");
+                } else {
+                    solde -= montant;
+                    System.out.println(" Retrait de " + montant + " DT effectué.");
+                }
+            } else {
+                System.out.println(" Le montant du retrait doit être positif.");
+            }
+        }
+
+        // Virement
+        public void veriVert(Compte destinataire, double montant) {
+            System.out.println(" Tentative de transfert de " + montant + " DT...");
+
+            if (montant <= 0) {
+                System.out.println(" Montant invalide.");
+                return;
+            }
+
+            if (montant > solde) {
+                System.out.println(" Solde insuffisant. Solde actuel : " + solde + " DT");
+                return;
+            }
+
+            // Effectuer le transfert
+            this.solde -= montant;
+            destinataire.solde += montant;
+
+            System.out.println(" Transfert réussi !");
+            System.out.println("   Nouveau solde (émetteur) : " + this.solde + " DT");
+            System.out.println("   Nouveau solde (destinataire) : " + destinataire.solde + " DT");
+        }
+
+        // Affichage du solde
+        public void afficher() {
+            System.out.println(" Le solde actuel est : " + solde + " DT");
+        }
+    }
+
+    // ------------------- Méthode main -------------------
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Création du premier compte
+        System.out.print("Entrer le solde initial du premier compte : ");
+        double solde1 = sc.nextDouble();
+        Compte c1 = new Compte(solde1);
+
+        // Création du deuxième compte
+        System.out.print("Entrer le solde initial du deuxième compte : ");
+        double solde2 = sc.nextDouble();
+        Compte c2 = new Compte(solde2);
+
+        // Dépôt
+        System.out.print("Entrer le montant à déposer sur le premier compte : ");
+        double depot = sc.nextDouble();
+        c1.deposer(depot);
+
+        // Retrait
+        System.out.print("Entrer le montant à retirer du premier compte : ");
+        double retrait = sc.nextDouble();
+        c1.retirer(retrait);
+
+        // Virement
+        System.out.print("Entrer le montant à transférer du premier vers le deuxième compte : ");
+        double virement = sc.nextDouble();
+        c1.veriVert(c2, virement);
+
+        // Affichage final
+        System.out.println("---- Résumé final ----");
+        System.out.print("Compte 1 -> "); c1.afficher();
+        System.out.print("Compte 2 -> "); c2.afficher();
+
+
+    }
+}
