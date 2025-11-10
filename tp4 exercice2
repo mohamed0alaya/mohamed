@@ -1,0 +1,50 @@
+package tp4;
+
+public class Rectangle {
+    private double largeur;   // Attribut largeur
+    private double longueur;  // Attribut longueur
+
+    // Constructeur
+    public Rectangle(double largeur, double longueur) {
+        this.largeur = largeur;
+        this.longueur = longueur;
+    }
+
+    // Méthode pour calculer la surface
+    public double surface() {
+        return largeur * longueur;
+    }
+
+    // Méthode pour calculer le périmètre
+    public double perimetre() {
+        return 2 * (largeur + longueur);
+    }
+
+    // Méthode pour afficher les infos du rectangle
+    public void afficher() {
+        System.out.println("Surface : " + surface());
+        System.out.println(" Périmètre : " + perimetre());
+    }
+}
+
+import java.util.Scanner;
+
+public class TestRectangle {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Entrer la largeur du rectangle : ");
+        double largeur = sc.nextDouble();
+
+        System.out.print("Entrer la longueur du rectangle : ");
+        double longueur = sc.nextDouble();
+
+        // Création d’un objet Rectangle
+        Rectangle r = new Rectangle(largeur, longueur);
+
+        // Affichage des résultats
+        r.afficher();
+
+    }
+}
+
